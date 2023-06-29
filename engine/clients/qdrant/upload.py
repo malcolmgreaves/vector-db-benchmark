@@ -21,6 +21,9 @@ class QdrantUploader(BaseUploader):
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: Optional[List[dict]]
     ):
+        # print("\n\n\n\n\nHERE\n\n\n\n\n\n")
+        # import ipdb;
+        # ipdb.set_trace()
         cls.client.upsert(
             collection_name=QDRANT_COLLECTION_NAME,
             points=Batch.construct(

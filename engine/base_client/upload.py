@@ -43,6 +43,25 @@ class BaseUploader:
                 latencies.append(self._upload_batch(batch))
         else:
             ctx = get_context(self.get_mp_start_method())
+
+            import ipdb; ipdb.set_trace()
+
+            # with ctx.Pool(
+            #     processes=int(parallel),
+            #     initializer=self.__class__.init_client,
+            #     initargs=(
+            #         self.host,
+            #         distance,
+            #         self.connection_params,
+            #         self.upload_params,
+            #     ),
+            # ) as pool:
+            #     latencies = list(
+            #         pool.imap(
+            #             self.__class__._upload_batch,
+            #             iter_batches(tqdm.tqdm(records), batch_size),
+            #         )
+            #     )
             with ctx.Pool(
                 processes=int(parallel),
                 initializer=self.__class__.init_client,
