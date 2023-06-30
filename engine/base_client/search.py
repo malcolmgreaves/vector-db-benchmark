@@ -11,6 +11,18 @@ from dataset_reader.base_reader import Query
 DEFAULT_TOP = 10
 
 
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class _SafeSearcher:
+    base: 'BaseSearcher'
+    top: Optional[int]
+
+    def search_one(self, query):
+        return self.base.__class__._search_one(query, self.top)
+
+
 class BaseSearcher:
     MP_CONTEXT = None
 
@@ -69,7 +81,8 @@ class BaseSearcher:
         )
         self.setup_search()
 
-        search_one = functools.partial(self.__class__._search_one, top=top)
+        #search_one = functools.partial(self.__class__._search_one, top=top)
+        searcher = _SafeSearcher(self, top)
 
         if parallel == 1:
             start = time.perf_counter()
@@ -93,7 +106,10 @@ class BaseSearcher:
                     time.sleep(15)  # Wait for all processes to start
                 start = time.perf_counter()
                 precisions, latencies = list(
-                    zip(*pool.imap_unordered(search_one, iterable=tqdm.tqdm(queries)))
+                    zip(*pool.imap_unordered(
+                        #search_one, 
+                        searcher.search_one,
+                        iterable=tqdm.tqdm(queries)))
                 )
 
         total_time = time.perf_counter() - start
