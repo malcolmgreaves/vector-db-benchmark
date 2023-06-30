@@ -67,11 +67,17 @@ class BaseSearcher:
 
         return precision, end - start
 
-    def search_all(
-        self,
+    def setup_search(self):
+        pass
+
+    def post_search(self):
+        pass
+
+def search_all(
+        self: BaseSearcher,
         distance,
         queries: Iterable[Query],
-    ):
+):
         parallel = self.search_params.pop("parallel", 1)
         top = self.search_params.pop("top", None)
 
@@ -82,7 +88,8 @@ class BaseSearcher:
         self.setup_search()
 
         #search_one = functools.partial(self.__class__._search_one, top=top)
-        searcher = _SafeSearcher(self, top)
+        search_one = functools.partial(self._search_one, top=top)
+        #searcher = _SafeSearcher(self, top)
 
         if parallel == 1:
             start = time.perf_counter()
@@ -107,8 +114,8 @@ class BaseSearcher:
                 start = time.perf_counter()
                 precisions, latencies = list(
                     zip(*pool.imap_unordered(
-                        #search_one, 
-                        searcher.search_one,
+                        search_one, 
+                        #searcher.search_one,
                         iterable=tqdm.tqdm(queries)))
                 )
 
@@ -127,8 +134,4 @@ class BaseSearcher:
             "latencies": latencies,
         }
 
-    def setup_search(self):
-        pass
 
-    def post_search(self):
-        pass
