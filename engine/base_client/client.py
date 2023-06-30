@@ -73,7 +73,7 @@ class BaseClient:
 
             print("Experiment stage: Upload")
             upload_stats = self.uploader.upload(
-                distance=dataset.config.distance, records=reader.read_data()
+                distance=dataset.config.distance, records=short(reader.read_data(), limit=100)
             )
             self.save_upload_results(
                 dataset.config.name,
@@ -98,3 +98,11 @@ class BaseClient:
                 )
         print("Experiment stage: Done")
         print("Results saved to: ", RESULTS_DIR)
+
+
+def short(xs, limit=10):
+    for i, x in enumerate(xs):
+        if i < limit:
+            yield x
+        else:
+            break
