@@ -24,7 +24,6 @@ class QdrantConfigurator(BaseConfigurator):
     def __init__(self, host, collection_params: dict, connection_params: dict):
         super().__init__(host, collection_params, connection_params)
         self.client = QdrantClient(host=host, **connection_params)
-        import ipdb; ipdb.set_trace()
 
     def clean(self):
         self.client.delete_collection(collection_name=QDRANT_COLLECTION_NAME)

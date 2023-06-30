@@ -44,24 +44,8 @@ class BaseUploader:
         else:
             ctx = get_context(self.get_mp_start_method())
 
-            import ipdb; ipdb.set_trace()
+            # import ipdb; ipdb.set_trace()
 
-            # with ctx.Pool(
-            #     processes=int(parallel),
-            #     initializer=self.__class__.init_client,
-            #     initargs=(
-            #         self.host,
-            #         distance,
-            #         self.connection_params,
-            #         self.upload_params,
-            #     ),
-            # ) as pool:
-            #     latencies = list(
-            #         pool.imap(
-            #             self.__class__._upload_batch,
-            #             iter_batches(tqdm.tqdm(records), batch_size),
-            #         )
-            #     )
             with ctx.Pool(
                 processes=int(parallel),
                 initializer=self.__class__.init_client,
@@ -74,10 +58,24 @@ class BaseUploader:
             ) as pool:
                 latencies = list(
                     pool.imap(
+                    # pool.map(
                         self.__class__._upload_batch,
                         iter_batches(tqdm.tqdm(records), batch_size),
                     )
                 )
+
+
+            # self.__class__.init_client(
+            #     self.host,
+            #     distance,
+            #     self.connection_params,
+            #     self.upload_params,
+            # )
+            #
+            # for batch in iter_batches(tqdm.tqdm(records), batch_size):
+            #     ids, vectors, metadata = batch
+            #     latencies.append(self.__class__.upload_batch(ids, vectors, metadata))
+
 
         upload_time = time.perf_counter() - start
 
@@ -88,6 +86,9 @@ class BaseUploader:
         total_time = time.perf_counter() - start
 
         print(f"Total import time: {total_time}")
+
+        # import ipdb;
+        # ipdb.set_trace()
 
         self.delete_client()
 

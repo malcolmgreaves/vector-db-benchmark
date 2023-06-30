@@ -24,6 +24,9 @@ class QdrantUploader(BaseUploader):
         # print("\n\n\n\n\nHERE\n\n\n\n\n\n")
         # import ipdb;
         # ipdb.set_trace()
+
+        # print(f"\n\n{cls=}\n\n")
+
         cls.client.upsert(
             collection_name=QDRANT_COLLECTION_NAME,
             points=Batch.construct(
