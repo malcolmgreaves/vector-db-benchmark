@@ -73,7 +73,7 @@ class BaseClient:
 
             print("Experiment stage: Upload")
             upload_stats = self.uploader.upload(
-                distance=dataset.config.distance, records=short(reader.read_data(), limit=100)
+                distance=dataset.config.distance, records=short(reader.read_data(), limit=10000)
             )
             self.save_upload_results(
                 dataset.config.name,
