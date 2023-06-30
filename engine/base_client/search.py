@@ -74,64 +74,64 @@ class BaseSearcher:
         pass
 
 def search_all(
-        self: BaseSearcher,
-        distance,
-        queries: Iterable[Query],
+    self: BaseSearcher,
+    distance,
+    queries: Iterable[Query],
 ):
-        parallel = self.search_params.pop("parallel", 1)
-        top = self.search_params.pop("top", None)
+    parallel = self.search_params.pop("parallel", 1)
+    top = self.search_params.pop("top", None)
 
-        # setup_search may require initialized client
-        self.init_client(
-            self.host, distance, self.connection_params, self.search_params
+    # setup_search may require initialized client
+    self.init_client(
+        self.host, distance, self.connection_params, self.search_params
+    )
+    self.setup_search()
+
+    #search_one = functools.partial(self.__class__._search_one, top=top)
+    search_one = functools.partial(self._search_one, top=top)
+    #searcher = _SafeSearcher(self, top)
+
+    if parallel == 1:
+        start = time.perf_counter()
+        precisions, latencies = list(
+            zip(*[search_one(query) for query in tqdm.tqdm(queries)])
         )
-        self.setup_search()
+    else:
+        ctx = get_context(self.get_mp_start_method())
 
-        #search_one = functools.partial(self.__class__._search_one, top=top)
-        search_one = functools.partial(self._search_one, top=top)
-        #searcher = _SafeSearcher(self, top)
-
-        if parallel == 1:
+        with ctx.Pool(
+            processes=parallel,
+            initializer=self.__class__.init_client,
+            initargs=(
+                self.host,
+                distance,
+                self.connection_params,
+                self.search_params,
+            ),
+        ) as pool:
+            if parallel > 10:
+                time.sleep(15)  # Wait for all processes to start
             start = time.perf_counter()
             precisions, latencies = list(
-                zip(*[search_one(query) for query in tqdm.tqdm(queries)])
+                zip(*pool.imap_unordered(
+                    search_one,
+                    #searcher.search_one,
+                    iterable=tqdm.tqdm(queries)))
             )
-        else:
-            ctx = get_context(self.get_mp_start_method())
 
-            with ctx.Pool(
-                processes=parallel,
-                initializer=self.__class__.init_client,
-                initargs=(
-                    self.host,
-                    distance,
-                    self.connection_params,
-                    self.search_params,
-                ),
-            ) as pool:
-                if parallel > 10:
-                    time.sleep(15)  # Wait for all processes to start
-                start = time.perf_counter()
-                precisions, latencies = list(
-                    zip(*pool.imap_unordered(
-                        search_one, 
-                        #searcher.search_one,
-                        iterable=tqdm.tqdm(queries)))
-                )
-
-        total_time = time.perf_counter() - start
-        return {
-            "total_time": total_time,
-            "mean_time": np.mean(latencies),
-            "mean_precisions": np.mean(precisions),
-            "std_time": np.std(latencies),
-            "min_time": np.min(latencies),
-            "max_time": np.max(latencies),
-            "rps": len(latencies) / total_time,
-            "p95_time": np.percentile(latencies, 95),
-            "p99_time": np.percentile(latencies, 99),
-            "precisions": precisions,
-            "latencies": latencies,
-        }
+    total_time = time.perf_counter() - start
+    return {
+        "total_time": total_time,
+        "mean_time": np.mean(latencies),
+        "mean_precisions": np.mean(precisions),
+        "std_time": np.std(latencies),
+        "min_time": np.min(latencies),
+        "max_time": np.max(latencies),
+        "rps": len(latencies) / total_time,
+        "p95_time": np.percentile(latencies, 95),
+        "p99_time": np.percentile(latencies, 99),
+        "precisions": precisions,
+        "latencies": latencies,
+    }
 
 

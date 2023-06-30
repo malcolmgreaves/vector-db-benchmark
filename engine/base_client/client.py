@@ -8,6 +8,11 @@ from engine.base_client.configure import BaseConfigurator
 from engine.base_client.search import BaseSearcher
 from engine.base_client.upload import BaseUploader
 
+
+
+from engine.base_client.search import search_all
+
+
 RESULTS_DIR = ROOT_DIR / "results"
 RESULTS_DIR.mkdir(exist_ok=True)
 
@@ -83,8 +88,10 @@ class BaseClient:
             print("Experiment stage: Search")
             for search_id, searcher in enumerate(self.searchers):
                 search_params = {**searcher.search_params}
-                search_stats = searcher.search_all(
-                    dataset.config.distance, reader.read_queries()
+                search_stats = search_all(
+                    searcher,
+                    dataset.config.distance,
+                    reader.read_queries()
                 )
                 self.save_search_results(
                     dataset.config.name, search_stats, search_id, search_params
