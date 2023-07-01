@@ -1,0 +1,26 @@
+[
+  {
+    "name": "weaviate-m-16-ef-128",
+    "engine": "weaviate",
+    "connection_params": {
+      "timeout_config": 1000
+    },
+    "collection_params": { "vectorIndexConfig": { "ef": 100, "efConstruction": 128, "maxConnections": 16 } },
+    "search_params": [
+      { "parallel": 16, "vectorIndexConfig": { "ef": 128} }
+    ],
+    "upload_params": { "batch_size": 1000, "parallel": 5 }
+  },
+  {
+    "name": "weaviate-m-64-ef-512",
+    "engine": "weaviate",
+    "connection_params": {
+      "timeout_config": 1000
+    },
+    "collection_params": { "vectorIndexConfig": { "ef": 100, "efConstruction": 512, "maxConnections": 64 } },
+    "search_params": [
+      { "parallel": 16, "vectorIndexConfig": { "ef": 512} }
+    ],
+    "upload_params": { "batch_size": 10000, "parallel": 1 }
+  }
+]
