@@ -44,17 +44,16 @@ class BaseUploader:
             self.host, distance, self.connection_params, self.upload_params
         )
 
-        
         if parallel == 1:
             for batch in iter_batches(tqdm.tqdm(records), batch_size):
                 latencies.append(self._upload_batch(batch))
         else:
-            ctx = get_context("forkserver")#self.get_mp_start_method())
+            # ctx = get_context(self.get_mp_start_method())
 
             # import ipdb; ipdb.set_trace()
 
-            with ctx.Pool(
-            # with multiprocessing.pool.ThreadPool(
+            # with ctx.Pool(
+            with multiprocessing.pool.ThreadPool(
                 processes=int(parallel),
                 initializer=self.init_client,
                 initargs=(
