@@ -7,7 +7,12 @@ import tqdm
 from dataset_reader.base_reader import Record
 from engine.base_client.utils import iter_batches
 
-
+def limit(xs):
+    for i,x in enumerate(xs):
+        if i > 10:
+            break
+        yield x
+        
 class BaseUploader:
     client = None
 
@@ -62,7 +67,7 @@ class BaseUploader:
                     pool.imap(
                     # pool.map(
                         self._upload_batch,
-                        iter_batches(tqdm.tqdm(records), batch_size),
+                        limit(iter_batches(tqdm.tqdm(records), batch_size)),
                     )
                 )
 
