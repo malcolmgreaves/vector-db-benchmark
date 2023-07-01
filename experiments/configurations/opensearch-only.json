@@ -1,5 +1,17 @@
 [
   {
+    "name": "only-opensearch-m-16-ef-128",
+    "engine": "opensearch",
+    "connection_params": {
+      "request_timeout": 10000
+    },
+    "collection_params": { "method": { "parameters": { "m": 16, "ef_construction": 128 } } },
+    "search_params": [
+      { "parallel": 16, "knn.algo_param.ef_search": 128 }
+    ],
+    "upload_params": { "parallel": 16 }
+  },
+  {
     "name": "only-opensearch-m-64-ef-512",
     "engine": "opensearch",
     "connection_params": {
