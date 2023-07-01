@@ -1,4 +1,5 @@
 import functools
+import multiprocessing
 import time
 from multiprocessing import get_context
 from typing import Iterable, List, Optional, Tuple
@@ -70,7 +71,6 @@ class BaseSearcher:
         self.setup_search()
 
         search_one = functools.partial(self._search_one, top=top)
-
         
         if parallel == 1:
             start = time.perf_counter()
@@ -80,7 +80,8 @@ class BaseSearcher:
         else:
             ctx = get_context(self.get_mp_start_method())
 
-            with ctx.Pool(
+            # with ctx.Pool(
+            with multiprocessing.pool.ThreadPool(
                 processes=parallel,
                 initializer=self.init_client,
                 initargs=(

@@ -1,3 +1,4 @@
+import multiprocessing.pool
 import time
 from multiprocessing import get_context
 from typing import Iterable, List, Optional, Tuple
@@ -25,7 +26,7 @@ class BaseUploader:
     def get_mp_start_method(cls):
         return None
 
-    
+
     def init_client(cls, host, distance, connection_params: dict, upload_params: dict):
         raise NotImplementedError()
 
@@ -42,8 +43,6 @@ class BaseUploader:
         self.init_client(
             self.host, distance, self.connection_params, self.upload_params
         )
-
-
         
         if parallel == 1:
             for batch in iter_batches(tqdm.tqdm(records), batch_size):
@@ -53,7 +52,8 @@ class BaseUploader:
 
             # import ipdb; ipdb.set_trace()
 
-            with ctx.Pool(
+            # with ctx.Pool(
+            with multiprocessing.pool.ThreadPool(
                 processes=int(parallel),
                 initializer=self.init_client,
                 initargs=(
