@@ -71,7 +71,7 @@ class BaseSearcher:
 
         search_one = functools.partial(self._search_one, top=top)
 
-        parallel = 1
+        
         if parallel == 1:
             start = time.perf_counter()
             precisions, latencies = list(
