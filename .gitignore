@@ -7,3 +7,5 @@ NOTES.md
 *qdrant_storage*
 
 results/*
+
+engine/servers/milvus-single-node/volumes/
