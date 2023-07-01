@@ -40,18 +40,17 @@ class BaseUploader:
         parallel = self.upload_params.pop("parallel", 1)
         batch_size = self.upload_params.pop("batch_size", 64)
 
-        self.init_client(
-            self.host, distance, self.connection_params, self.upload_params
-        )
+
         
         if parallel == 1:
+            self.init_client(
+                self.host, distance, self.connection_params, self.upload_params
+            )
+            
             for batch in iter_batches(tqdm.tqdm(records), batch_size):
                 latencies.append(self._upload_batch(batch))
         else:
-            ctx = get_context(
-                "spawn"
-                # self.get_mp_start_method()
-            )
+            ctx = get_context(self.get_mp_start_method())
 
             # import ipdb; ipdb.set_trace()
 
