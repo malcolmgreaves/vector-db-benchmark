@@ -78,10 +78,7 @@ class BaseSearcher:
                 zip(*[search_one(query) for query in tqdm.tqdm(queries)])
             )
         else:
-            ctx = get_context(
-                "spawn"
-                # self.get_mp_start_method(),
-            )
+            ctx = get_context("forkserver")#self.get_mp_start_method())
 
             with ctx.Pool(
             # with multiprocessing.pool.ThreadPool(
