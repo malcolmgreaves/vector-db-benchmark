@@ -14,12 +14,12 @@ class RedisSearcher(BaseSearcher):
     client = None
     parser = RedisConditionParser()
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params: dict, search_params: dict):
         cls.client = redis.Redis(host=host, port=REDIS_PORT, db=0)
         cls.search_params = search_params
 
-    @classmethod
+    
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
         conditions = cls.parser.parse(meta_conditions)
         if conditions is None:

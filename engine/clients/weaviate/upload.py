@@ -11,7 +11,7 @@ class WeaviateUploader(BaseUploader):
     client = None
     upload_params = {}
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params, upload_params):
         url = f"http://{host}:{connection_params.pop('port', WEAVIATE_DEFAULT_PORT)}"
         cls.client = Client(url, **connection_params)
@@ -31,7 +31,7 @@ class WeaviateUploader(BaseUploader):
 
         return data_object
 
-    @classmethod
+    
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: List[Optional[dict]]
     ):

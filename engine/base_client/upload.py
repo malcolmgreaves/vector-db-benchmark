@@ -16,11 +16,11 @@ class BaseUploader:
         self.connection_params = connection_params
         self.upload_params = upload_params
 
-    @classmethod
+    
     def get_mp_start_method(cls):
         return None
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params: dict, upload_params: dict):
         raise NotImplementedError()
 
@@ -99,7 +99,7 @@ class BaseUploader:
             "latencies": latencies,
         }
 
-    @classmethod
+    
     def _upload_batch(
         cls, batch: Tuple[List[int], List[list], List[Optional[dict]]]
     ) -> float:
@@ -108,16 +108,16 @@ class BaseUploader:
         cls.upload_batch(ids, vectors, metadata)
         return time.perf_counter() - start
 
-    @classmethod
+    
     def post_upload(cls, distance):
         return {}
 
-    @classmethod
+    
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: List[Optional[dict]]
     ):
         raise NotImplementedError()
 
-    @classmethod
+    
     def delete_client(cls):
         pass

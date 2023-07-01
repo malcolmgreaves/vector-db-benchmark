@@ -24,11 +24,11 @@ class ElasticSearcher(BaseSearcher):
     client: Elasticsearch = None
     parser = ElasticConditionParser()
 
-    @classmethod
+    
     def get_mp_start_method(cls):
         return "forkserver" if "forkserver" in mp.get_all_start_methods() else "spawn"
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params: dict, search_params: dict):
         init_params = {
             **{
@@ -45,7 +45,7 @@ class ElasticSearcher(BaseSearcher):
         )
         cls.search_params = search_params
 
-    @classmethod
+    
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
         knn = {
             "field": "vector",

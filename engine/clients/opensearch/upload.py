@@ -22,11 +22,11 @@ class OpenSearchUploader(BaseUploader):
     client: OpenSearch = None
     upload_params = {}
 
-    @classmethod
+    
     def get_mp_start_method(cls):
         return "forkserver" if "forkserver" in mp.get_all_start_methods() else "spawn"
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params, upload_params):
         init_params = {
             **{
@@ -43,7 +43,7 @@ class OpenSearchUploader(BaseUploader):
         )
         cls.upload_params = upload_params
 
-    @classmethod
+    
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: Optional[List[dict]]
     ):
@@ -66,7 +66,7 @@ class OpenSearchUploader(BaseUploader):
             },
         )
 
-    @classmethod
+    
     def post_upload(cls, _distance):
         cls.client.indices.forcemerge(
             index=OPENSEARCH_INDEX,

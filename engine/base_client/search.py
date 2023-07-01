@@ -19,23 +19,23 @@ class BaseSearcher:
         self.connection_params = connection_params
         self.search_params = search_params
 
-    @classmethod
+    
     def init_client(
         cls, host: str, distance, connection_params: dict, search_params: dict
     ):
         raise NotImplementedError()
 
-    @classmethod
+    
     def get_mp_start_method(cls):
         return None
 
-    @classmethod
+    
     def search_one(
         cls, vector: List[float], meta_conditions, top: Optional[int]
     ) -> List[Tuple[int, float]]:
         raise NotImplementedError()
 
-    @classmethod
+    
     def _search_one(cls, query, top: Optional[int] = None):
         if top is None:
             top = (

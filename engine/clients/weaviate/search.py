@@ -13,13 +13,13 @@ class WeaviateSearcher(BaseSearcher):
     client: Client = None
     parser = WeaviateConditionParser()
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params: dict, search_params: dict):
         url = f"http://{host}:{connection_params.pop('port', WEAVIATE_DEFAULT_PORT)}"
         cls.client = Client(url, **connection_params)
         cls.search_params = search_params
 
-    @classmethod
+    
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
         near_vector = {"vector": vector}
         where_conditions = cls.parser.parse(meta_conditions)

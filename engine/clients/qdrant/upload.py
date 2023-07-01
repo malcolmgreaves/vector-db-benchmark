@@ -12,12 +12,12 @@ class QdrantUploader(BaseUploader):
     client = None
     upload_params = {}
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params, upload_params):
         cls.client = QdrantClient(host=host, prefer_grpc=True, **connection_params)
         cls.upload_params = upload_params
 
-    @classmethod
+    
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: Optional[List[dict]]
     ):
@@ -36,12 +36,12 @@ class QdrantUploader(BaseUploader):
             ),
         )
 
-    @classmethod
+    
     def post_upload(cls, _distance):
         cls.wait_collection_green()
         return {}
 
-    @classmethod
+    
     def wait_collection_green(cls):
         wait_time = 5.0
         total = 0
@@ -57,7 +57,7 @@ class QdrantUploader(BaseUploader):
                 break
         return total
 
-    @classmethod
+    
     def delete_client(cls):
         if cls.client is not None:
             del cls.client

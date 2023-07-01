@@ -20,7 +20,7 @@ class MilvusSearcher(BaseSearcher):
     distance: str = None
     parser = MilvusConditionParser()
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params: dict, search_params: dict):
         cls.client = connections.connect(
             alias=MILVUS_DEFAULT_ALIAS,
@@ -32,11 +32,11 @@ class MilvusSearcher(BaseSearcher):
         cls.search_params = search_params
         cls.distance = DISTANCE_MAPPING[distance]
 
-    @classmethod
+    
     def get_mp_start_method(cls):
         return "forkserver" if "forkserver" in mp.get_all_start_methods() else "spawn"
 
-    @classmethod
+    
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
         param = {"metric_type": cls.distance, "params": cls.search_params["params"]}
         try:

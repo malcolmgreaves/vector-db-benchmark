@@ -15,7 +15,7 @@ class QdrantSearcher(BaseSearcher):
     client: QdrantClient = None
     parser = QdrantConditionParser()
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params: dict, search_params: dict):
         cls.client: QdrantClient = QdrantClient(
             host,
@@ -26,11 +26,11 @@ class QdrantSearcher(BaseSearcher):
         cls.search_params = search_params
 
     # Uncomment for gRPC
-    # @classmethod
+    # 
     # def get_mp_start_method(cls):
     #     return "forkserver" if "forkserver" in mp.get_all_start_methods() else "spawn"
 
-    @classmethod
+    
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
         res = cls.client.search(
             collection_name=QDRANT_COLLECTION_NAME,

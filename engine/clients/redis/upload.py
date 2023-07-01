@@ -12,12 +12,12 @@ class RedisUploader(BaseUploader):
     client = None
     upload_params = {}
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params, upload_params):
         cls.client = redis.Redis(host=host, port=REDIS_PORT, db=0)
         cls.upload_params = upload_params
 
-    @classmethod
+    
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: Optional[List[dict]]
     ):
@@ -48,6 +48,6 @@ class RedisUploader(BaseUploader):
             )
         p.execute()
 
-    @classmethod
+    
     def post_upload(cls, _distance):
         return {}

@@ -24,11 +24,11 @@ class OpenSearchSearcher(BaseSearcher):
     client: OpenSearch = None
     parser = OpenSearchConditionParser()
 
-    @classmethod
+    
     def get_mp_start_method(cls):
         return "forkserver" if "forkserver" in mp.get_all_start_methods() else "spawn"
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params: dict, search_params: dict):
         init_params = {
             **{
@@ -45,7 +45,7 @@ class OpenSearchSearcher(BaseSearcher):
         )
         cls.search_params = search_params
 
-    @classmethod
+    
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
         query = {
             "knn": {
@@ -80,7 +80,7 @@ class OpenSearchSearcher(BaseSearcher):
             for hit in res["hits"]["hits"]
         ]
 
-    @classmethod
+    
     def setup_search(cls):
         if cls.search_params:
             cls.client.indices.put_settings(

@@ -24,11 +24,11 @@ class MilvusUploader(BaseUploader):
     collection: Collection = None
     distance: str = None
 
-    @classmethod
+    
     def get_mp_start_method(cls):
         return "forkserver" if "forkserver" in mp.get_all_start_methods() else "spawn"
 
-    @classmethod
+    
     def init_client(cls, host, distance, connection_params, upload_params):
         cls.client = connections.connect(
             alias=MILVUS_DEFAULT_ALIAS,
@@ -40,7 +40,7 @@ class MilvusUploader(BaseUploader):
         cls.upload_params = upload_params
         cls.distance = DISTANCE_MAPPING[distance]
 
-    @classmethod
+    
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: Optional[List[dict]]
     ):
@@ -57,7 +57,7 @@ class MilvusUploader(BaseUploader):
             field_values = []
         cls.collection.insert([ids, vectors] + field_values)
 
-    @classmethod
+    
     def post_upload(cls, distance):
         index_params = {
             "metric_type": cls.distance,
