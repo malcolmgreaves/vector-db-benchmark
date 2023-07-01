@@ -50,7 +50,7 @@ class BaseUploader:
 
             with ctx.Pool(
                 processes=int(parallel),
-                initializer=self.__class__.init_client,
+                initializer=self.init_client,
                 initargs=(
                     self.host,
                     distance,
@@ -61,13 +61,13 @@ class BaseUploader:
                 latencies = list(
                     pool.imap(
                     # pool.map(
-                        self.__class__._upload_batch,
+                        self._upload_batch,
                         iter_batches(tqdm.tqdm(records), batch_size),
                     )
                 )
 
 
-            # self.__class__.init_client(
+            # self.init_client(
             #     self.host,
             #     distance,
             #     self.connection_params,
@@ -76,7 +76,7 @@ class BaseUploader:
             #
             # for batch in iter_batches(tqdm.tqdm(records), batch_size):
             #     ids, vectors, metadata = batch
-            #     latencies.append(self.__class__.upload_batch(ids, vectors, metadata))
+            #     latencies.append(self.upload_batch(ids, vectors, metadata))
 
 
         upload_time = time.perf_counter() - start

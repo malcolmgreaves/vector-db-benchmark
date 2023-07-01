@@ -69,7 +69,7 @@ class BaseSearcher:
         )
         self.setup_search()
 
-        search_one = functools.partial(self.__class__._search_one, top=top)
+        search_one = functools.partial(self._search_one, top=top)
 
         parallel = 1
         if parallel == 1:
@@ -82,7 +82,7 @@ class BaseSearcher:
 
             with ctx.Pool(
                 processes=parallel,
-                initializer=self.__class__.init_client,
+                initializer=self.init_client,
                 initargs=(
                     self.host,
                     distance,
