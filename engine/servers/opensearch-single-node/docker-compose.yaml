@@ -8,8 +8,8 @@ services:
       plugins.security.disabled: true
       OPENSEARCH_JAVA_OPTS: "-Xms4g -Xmx25g"
     ports:
-      - "9201:9200"
-      - "9301:9300"
+      - "9200:9200"
+      - "9300:9300"
     logging:
       driver: "json-file"
       options:
