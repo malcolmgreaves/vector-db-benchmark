@@ -1,6 +1,6 @@
 [
   {
-    "name": "weaviate-m-16-ef-128",
+    "name": "only-weaviate-m-16-ef-128",
     "engine": "weaviate",
     "connection_params": {
       "timeout_config": 1000
@@ -12,7 +12,7 @@
     "upload_params": { "batch_size": 1000, "parallel": 5 }
   },
   {
-    "name": "weaviate-m-64-ef-512",
+    "name": "only-weaviate-m-64-ef-512",
     "engine": "weaviate",
     "connection_params": {
       "timeout_config": 1000

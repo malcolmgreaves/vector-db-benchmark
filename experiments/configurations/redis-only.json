@@ -1,6 +1,6 @@
 [
   {
-    "name": "redis-m-16-ef-128",
+    "name": "only-redis-m-16-ef-128",
     "engine": "redis",
     "connection_params": {},
     "collection_params": {
@@ -12,7 +12,7 @@
     "upload_params": { "parallel": 16 }
   },
   {
-    "name": "redis-m-64-ef-512",
+    "name": "only-redis-m-64-ef-512",
     "engine": "redis",
     "connection_params": {},
     "collection_params": {
