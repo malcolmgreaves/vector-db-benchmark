@@ -26,6 +26,7 @@ class RedisUploader(BaseUploader):
             idx = ids[i]
             vec = vectors[i]
             meta = metadata[i] if metadata else {}
+            meta = meta if meta is not None else {}
             payload = {
                 k: v
                 for k, v in meta.items()
