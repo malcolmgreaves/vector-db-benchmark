@@ -19,6 +19,13 @@ class WeaviateUploader(BaseUploader):
         cls.upload_params = upload_params
         cls.connection_params = connection_params
 
+         # Weaviate introduced the batch_size, so it can handle built-in client's
+        # multi-threading. That should make the upload faster.
+        cls.client.batch.configure(
+            batch_size=100,
+            timeout_retries=3,
+        )
+
     @staticmethod
     def _update_geo_data(data_object):
         keys = data_object.keys()
@@ -35,12 +42,7 @@ class WeaviateUploader(BaseUploader):
     def upload_batch(
         cls, ids: List[int], vectors: List[list], metadata: List[Optional[dict]]
     ):
-        # Weaviate introduced the batch_size, so it can handle built-in client's
-        # multi-threading. That should make the upload faster.
-        cls.client.batch.configure(
-            batch_size=100,
-            timeout_retries=3,
-        )
+       
 
         with cls.client.batch as batch:
             for id_, vector, data_object in zip(ids, vectors, metadata):
