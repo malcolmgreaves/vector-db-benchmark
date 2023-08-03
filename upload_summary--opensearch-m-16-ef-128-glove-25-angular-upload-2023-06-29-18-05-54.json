@@ -1,0 +1,15 @@
+{
+  "params": {
+    "method": {
+      "parameters": {
+        "m": 16,
+        "ef_construction": 128
+      }
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 99.94403883300004,
+    "total_time": 100.856255208
+  }
+}

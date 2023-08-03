@@ -1,0 +1,125 @@
+------------------------------
+{
+  "params": {
+    "optimizers_config": {
+      "memmap_threshold": 10000000
+    },
+    "hnsw_config": {
+      "m": 32,
+      "ef_construct": 128
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 17.254339375,
+    "total_time": 132.397967958
+  }
+}
+------------------------------------------------------------
+./results/qdrant-default-glove-25-angular-upload-2023-06-29-16-32-34.json
+------------------------------
+{
+  "params": {
+    "optimizers_config": {
+      "memmap_threshold": 10000000
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 15.43841975,
+    "total_time": 110.547322791
+  }
+}
+------------------------------------------------------------
+./results/opensearch-m-32-ef-128-glove-25-angular-upload-2023-06-29-18-41-48.json
+------------------------------
+{
+  "params": {
+    "method": {
+      "parameters": {
+        "m": 32,
+        "ef_construction": 128
+      }
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 100.45748924999998,
+    "total_time": 101.493155
+  }
+}
+------------------------------------------------------------
+./results/qdrant-m-16-ef-128-glove-25-angular-upload-2023-06-29-18-33-10.json
+------------------------------
+{
+  "params": {
+    "optimizers_config": {
+      "memmap_threshold": 10000000
+    },
+    "hnsw_config": {
+      "m": 16,
+      "ef_construct": 128
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 17.324545584,
+    "total_time": 132.476038042
+  }
+}
+------------------------------------------------------------
+./results/opensearch-m-16-ef-128-glove-25-angular-upload-2023-06-29-18-05-54.json
+------------------------------
+{
+  "params": {
+    "method": {
+      "parameters": {
+        "m": 16,
+        "ef_construction": 128
+      }
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 99.94403883300004,
+    "total_time": 100.856255208
+  }
+}
+------------------------------------------------------------
+./results/scale-qdrant-m-16-ef-128-gist-960-euclidean-upload-2023-06-30-19-00-42.json
+------------------------------
+{
+  "params": {
+    "optimizers_config": {
+      "memmap_threshold": 10000000
+    },
+    "hnsw_config": {
+      "m": 16,
+      "ef_construct": 128
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 78.25234575,
+    "total_time": 1149.589336208
+  }
+}
+------------------------------------------------------------
+./results/opensearch-default-glove-25-angular-upload-2023-06-29-16-35-23.json
+------------------------------
+{
+  "params": {
+    "method": {
+      "parameters": {
+        "m": 16,
+        "ef_construction": 100
+      }
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 98.00787708399999,
+    "total_time": 99.07490949999999
+  }
+}
+------------------------------------------------------------

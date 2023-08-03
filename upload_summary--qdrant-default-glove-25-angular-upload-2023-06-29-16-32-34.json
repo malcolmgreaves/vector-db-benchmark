@@ -1,0 +1,12 @@
+{
+  "params": {
+    "optimizers_config": {
+      "memmap_threshold": 10000000
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 15.43841975,
+    "total_time": 110.547322791
+  }
+}
