@@ -44,9 +44,9 @@ def run(
     for engine_name, engine_config in selected_engines.items():
         for dataset_name, dataset_config in selected_datasets.items():
             print(f"Running experiment: {engine_name} - {dataset_name}")
-            if 'host' in engine_config:
-                host = engine_config['host']
-                del engine_config['host']
+            if 'host' in engine_config['connection_params']:
+                host = engine_config['connection_params']['host']
+                del engine_config['connection_params']['host']
                 print(f"new {host=}")
             client = ClientFactory(host).build_client(engine_config)
             dataset = Dataset(dataset_config)
