@@ -1,0 +1,20 @@
+{
+  "params": {
+    "optimizers_config": {
+      "memmap_threshold": 10000000
+    },
+    "hnsw_config": {
+      "m": 16,
+      "ef_construct": 128
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 0.10405430011451244,
+    "total_time": 10.124548422172666,
+    "latencies": [
+      0.02755381353199482,
+      0.02182825468480587
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "params": {
+    "method": {
+      "parameters": {
+        "m": 16,
+        "ef_construction": 100
+      }
+    }
+  },
+  "results": {
+    "post_upload": {},
+    "upload_time": 1.250694252550602,
+    "total_time": 2.2970823477953672,
+    "latencies": [
+      0.3475962970405817,
+      0.17440698482096195
+    ]
+  }
+}
