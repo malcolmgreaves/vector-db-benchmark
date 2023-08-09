@@ -5,8 +5,7 @@ __pycache__
 NOTES.md
 
 *qdrant_storage*
-servers/qdrant-single-node/storage/*
-results/*
+engine/servers/qdrant-single-node/storage/*
 data.json
 raft_state
 
